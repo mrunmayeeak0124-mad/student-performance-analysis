@@ -44,4 +44,4 @@ cd dashboard
 streamlit run app.py
 
 ## Live dashboard
-<paste your Streamlit link here after deployment>
+https://student-performance-analysis-mvhuhd42rdg4wpb4s5phqx.streamlit.app/
