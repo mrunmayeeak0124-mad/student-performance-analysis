@@ -3,6 +3,8 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 import pickle
+import os
+BASE = os.path.dirname(os.path.abspath(__file__))
 # Page configuration — must be the very first Streamlit command
 st.set_page_config(
     page_title="Student Performance Dashboard",
@@ -13,10 +15,10 @@ st.set_page_config(
 
 #Part B: Load Data and Models (once, at the top)
 # Load the processed dataset
-df = pd.read_csv("data/student_features.csv")
+df = pd.read_csv(os.path.join(BASE, "data", "student_features.csv"))
 # Load the two trained models saved from your notebooks
-rf_model = pickle.load(open("model_rf.pkl", "rb"))
-clf_model = pickle.load(open("model_classifier.pkl", "rb"))
+rf_model = pickle.load(open(os.path.join(BASE, "model_rf.pkl"), "rb"))
+clf_model = pickle.load(open(os.path.join(BASE, "model_classifier.pkl"), "rb"))
 
 
 #Part C: Sidebar Navigation
@@ -82,15 +84,15 @@ elif section == "Statistical Analysis":
     st.title("📈 Statistical Analysis")
 
     st.subheader("Correlation with Final Grade (G3)")
-    corr_table = pd.read_csv("D:/Mrunmayee/OneDrive/Desktop/student-performance-project/outputs/tables/correlation_matrix.csv", index_col=0)
+    corr_table = pd.read_csv(os.path.join(BASE, "D:/Mrunmayee/OneDrive/Desktop/student-performance-project/outputs/tables/correlation_matrix.csv"), index_col=0)
     st.dataframe(corr_table["G3"].sort_values(ascending=False))
 
     st.subheader("Model Comparison (Regression)")
-    reg_comparison = pd.read_csv("D:/Mrunmayee/OneDrive/Desktop/student-performance-project/outputs/tables/model_comparison_leakage.csv")
+    reg_comparison = pd.read_csv(os.path.join(BASE, "D:/Mrunmayee/OneDrive/Desktop/student-performance-project/outputs/tables/model_comparison_leakage.csv"))
     st.dataframe(reg_comparison)
 
     st.subheader("Model Comparison (Classification)")
-    clf_comparison = pd.read_csv("D:/Mrunmayee/OneDrive/Desktop/student-performance-project/outputs/tables/classification_comparison.csv")
+    clf_comparison = pd.read_csv(os.path.join(BASE, "D:/Mrunmayee/OneDrive/Desktop/student-performance-project/outputs/tables/classification_comparison.csv"))
     st.dataframe(clf_comparison)
 
 
@@ -99,16 +101,16 @@ elif section == "Model Performance":
     st.title("🤖 Model Performance")
 
     st.subheader("Actual vs Predicted (Random Forest Regressor)")
-    st.image("D:/Mrunmayee/OneDrive/Desktop/student-performance-project/outputs/figures/rf_actual_vs_predicted.png")
+    st.image(os.path.join(BASE, "D:/Mrunmayee/OneDrive/Desktop/student-performance-project/outputs/figures/rf_actual_vs_predicted.png"))
 
     st.subheader("Feature Importance — Regression")
-    st.image("D:/Mrunmayee/OneDrive/Desktop/student-performance-project/outputs/figures/16_feature_importance_regression.png")
+    st.image(os.path.join(BASE, "D:/Mrunmayee/OneDrive/Desktop/student-performance-project/outputs/figures/16_feature_importance_regression.png"))
 
     st.subheader("Feature Importance — Classification")
-    st.image("D:/Mrunmayee/OneDrive/Desktop/student-performance-project/outputs/figures/17_feature_importance_classification.png")
+    st.image(os.path.join(BASE, "D:/Mrunmayee/OneDrive/Desktop/student-performance-project/outputs/figures/17_feature_importance_classification.png"))
 
     st.subheader("Confusion Matrix — Logistic Regression")
-    st.image("D:/Mrunmayee/OneDrive/Desktop/student-performance-project/outputs/figures/confusion_matrix_logreg_a.png")
+    st.image(os.path.join(BASE, "D:/Mrunmayee/OneDrive/Desktop/student-performance-project/outputs/figures/confusion_matrix_logreg_a.png"))
 
 
 #Part H: Predict My Grade Page
