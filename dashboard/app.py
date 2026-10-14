@@ -18,8 +18,9 @@ st.set_page_config(
 df = pd.read_csv(os.path.join(BASE, "data", "student_features.csv"))
 # Load the two trained models saved from your notebooks
 rf_model = pickle.load(open(os.path.join(BASE, "model_rf.pkl"), "rb"))
+corr_table = pd.read_csv(os.path.join(BASE, "..", "outputs", "tables", "correlation_matrix.csv"), index_col=0)
 clf_model = pickle.load(open(os.path.join(BASE, "model_classifier.pkl"), "rb"))
-
+st.image(os.path.join(BASE, "..", "outputs", "figures", "rf_actual_vs_predicted.png"))
 
 #Part C: Sidebar Navigation
 st.sidebar.title("🎓 Student Performance Dashboard")
