@@ -18,9 +18,11 @@ st.set_page_config(
 df = pd.read_csv(os.path.join(BASE, "data", "student_features.csv"))
 # Load the two trained models saved from your notebooks
 rf_model = pickle.load(open(os.path.join(BASE, "model_rf.pkl"), "rb"))
-corr_table = pd.read_csv(os.path.join(BASE, "..", "outputs", "tables", "correlation_matrix.csv"), index_col=0)
 clf_model = pickle.load(open(os.path.join(BASE, "model_classifier.pkl"), "rb"))
-st.image(os.path.join(BASE, "..", "outputs", "figures", "rf_actual_vs_predicted.png"))
+
+# Folders holding the saved tables and figures (one level above the dashboard folder)
+TABLES = os.path.join(BASE, "..", "outputs", "tables")
+FIGURES = os.path.join(BASE, "..", "outputs", "figures")
 
 #Part C: Sidebar Navigation
 st.sidebar.title("🎓 Student Performance Dashboard")
@@ -85,15 +87,15 @@ elif section == "Statistical Analysis":
     st.title("📈 Statistical Analysis")
 
     st.subheader("Correlation with Final Grade (G3)")
-    corr_table = pd.read_csv(os.path.join(BASE, "D:/Mrunmayee/OneDrive/Desktop/student-performance-project/outputs/tables/correlation_matrix.csv"), index_col=0)
+    corr_table = pd.read_csv(os.path.join(TABLES, "correlation_matrix.csv"), index_col=0)
     st.dataframe(corr_table["G3"].sort_values(ascending=False))
 
     st.subheader("Model Comparison (Regression)")
-    reg_comparison = pd.read_csv(os.path.join(BASE, "D:/Mrunmayee/OneDrive/Desktop/student-performance-project/outputs/tables/model_comparison_leakage.csv"))
+    reg_comparison = pd.read_csv(os.path.join(TABLES, "model_comparison_leakage.csv"))
     st.dataframe(reg_comparison)
 
     st.subheader("Model Comparison (Classification)")
-    clf_comparison = pd.read_csv(os.path.join(BASE, "D:/Mrunmayee/OneDrive/Desktop/student-performance-project/outputs/tables/classification_comparison.csv"))
+    clf_comparison = pd.read_csv(os.path.join(TABLES, "classification_comparison.csv"))
     st.dataframe(clf_comparison)
 
 
@@ -102,16 +104,16 @@ elif section == "Model Performance":
     st.title("🤖 Model Performance")
 
     st.subheader("Actual vs Predicted (Random Forest Regressor)")
-    st.image(os.path.join(BASE, "D:/Mrunmayee/OneDrive/Desktop/student-performance-project/outputs/figures/rf_actual_vs_predicted.png"))
+    st.image(os.path.join(FIGURES, "rf_actual_vs_predicted.png"))
 
     st.subheader("Feature Importance — Regression")
-    st.image(os.path.join(BASE, "D:/Mrunmayee/OneDrive/Desktop/student-performance-project/outputs/figures/16_feature_importance_regression.png"))
+    st.image(os.path.join(FIGURES, "16_feature_importance_regression.png"))
 
     st.subheader("Feature Importance — Classification")
-    st.image(os.path.join(BASE, "D:/Mrunmayee/OneDrive/Desktop/student-performance-project/outputs/figures/17_feature_importance_classification.png"))
+    st.image(os.path.join(FIGURES, "17_feature_importance_classification.png"))
 
     st.subheader("Confusion Matrix — Logistic Regression")
-    st.image(os.path.join(BASE, "D:/Mrunmayee/OneDrive/Desktop/student-performance-project/outputs/figures/confusion_matrix_logreg_a.png"))
+    st.image(os.path.join(FIGURES, "confusion_matrix_logreg_a.png"))
 
 
 #Part H: Predict My Grade Page
